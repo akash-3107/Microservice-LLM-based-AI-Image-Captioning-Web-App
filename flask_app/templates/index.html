@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Captioning</title>
+</head>
+<body>
+    <h2>Upload an image to generate a caption</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input type="submit" value="Generate Caption">
+    </form>
+    {% if caption %}
+        <h3>Caption:</h3>
+        <p>{{ caption }}</p>
+    {% endif %}
+</body>
+</html>
