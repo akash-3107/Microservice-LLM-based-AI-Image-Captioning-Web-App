@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Caption History</title></head>
+<body>
+    <h2>Caption History</h2>
+    <a href="/">← Back to Home</a>
+    <ul>
+    {% for log in logs %}
+        <li>
+            <strong>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</strong><br>
+            <em>{{ log.image_name }}</em><br>
+            {{ log.caption }}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
