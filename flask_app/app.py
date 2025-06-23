@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import requests
 from models import db, CaptionLog
+import os
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -8,6 +10,8 @@ app = Flask(__name__)
 # update database details
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///captions.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = os.path.join("flask_app", "static", "uploads")
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 db.init_app(app)
 
 
@@ -25,9 +29,16 @@ def index():
     caption = None
     if request.method == "POST":
         image = request.files["image"]
-        files = {"file": (image.filename, image.stream, image.content_type)}
-        response = requests.post(FASTAPI_URL, files=files)
-        caption = response.json().get("caption")
+        filename = secure_filename(image.filename)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        print(image_path)
+        image.save(image_path)
+
+        # send to FastAPI
+        with open(image_path, "rb") as f:
+            files = {"file": (filename, f, image.content_type)}
+            response = requests.post(FASTAPI_URL, files=files)
+            caption = response.json().get("caption")
 
         # log to the database
         log = CaptionLog(image_name=image.filename, caption=caption)

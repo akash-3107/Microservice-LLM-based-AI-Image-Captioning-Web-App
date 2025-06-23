@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head><title>Caption History</title></head>
+<head>
+    <title>Caption History</title>
+    <style>
+        img { width:150px; height:auto; border-radius: 8px;}
+        .entry { margin: 20px 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;}
+    </style>
+</head>
+
 <body>
     <h2>Caption History</h2>
-    <a href="/">← Back to Home</a>
-    <ul>
-    {% for log in logs %}
-        <li>
-            <strong>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</strong><br>
-            <em>{{ log.image_name }}</em><br>
-            {{ log.caption }}
-        </li>
-    {% endfor %}
-    </ul>
+    <a href="/">← Back to Upload</a>
+    <div>
+        {% for log in logs %}
+            <div class="entry">
+                <img src="{{ url_for('static', filename='uploads/' + log.image_name) }}" alt="img">
+                <p><strong>{{ log.caption }}</strong></p>
+                <p><em>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</em></p>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
