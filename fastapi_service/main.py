@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from model.captioning import generate_caption
+from model.story import generate_story_from_caption
 import shutil
 
 app = FastAPI()
@@ -11,4 +12,7 @@ async def caption_image(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
 
     caption = generate_caption(temp_path)
-    return {"caption": caption}
+    #story = generate_story_from_caption(caption)
+    #print(story)
+    return {"caption" : caption}
+    #return {"caption": caption, "story": story}

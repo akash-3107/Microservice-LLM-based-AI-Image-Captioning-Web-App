@@ -39,9 +39,10 @@ def index():
             files = {"file": (filename, f, image.content_type)}
             response = requests.post(FASTAPI_URL, files=files)
             caption = response.json().get("caption")
+            #story = response.json().get("story")
 
         # log to the database
-        log = CaptionLog(image_name=image.filename, caption=caption)
+        log = CaptionLog(image_name=image.filename, image_path=image_path, caption=caption)
         db.session.add(log)
         db.session.commit()
 
