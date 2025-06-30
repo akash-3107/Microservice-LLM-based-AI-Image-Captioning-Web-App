@@ -1,0 +1,3 @@
+instance/*
+flask_app/static
+key.env
