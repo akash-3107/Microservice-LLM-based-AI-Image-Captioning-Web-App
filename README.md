@@ -1,4 +1,4 @@
-# Microservice-based-AI-Image-Captioning-Web-App
+# Microservice-LLM-based-AI-Image-Captioning-Web-App
 
 # 🖼️ AI Image Captioning Web App
 
