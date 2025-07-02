@@ -1,3 +1,4 @@
 instance/*
 flask_app/static
 key.env
+.DS_Store
